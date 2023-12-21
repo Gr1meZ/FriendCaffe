@@ -1,6 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.Api", "FriendCaffe.Api\FriendCaffe.Api.csproj", "{516B1F72-38F4-44D2-946B-5254D3E1E173}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7AA74126-9F34-4600-9790-A428C1ECFD9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{55464C0B-AB3E-4162-BE68-269DE6625FE8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{56EDBF76-AC1E-4D8F-B0A0-C02EA3ABFDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.Domain", "FriendCaffe.Domain\FriendCaffe.Domain.csproj", "{02795A1A-C710-4DB5-8E6D-49F642DFA9F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.Application", "FriendCaffe.Application\FriendCaffe.Application.csproj", "{828C5981-7E6B-4608-96A1-0DCEF2E3B2AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.Infrastructure", "FriendCaffe.Infrastructure\FriendCaffe.Infrastructure.csproj", "{4EE4B405-7181-4260-A09A-BFEC9731BF52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.WebApi", "FriendCaffe.WebApi\FriendCaffe.WebApi.csproj", "{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Architecture.Tests", "Architecture.Tests\Architecture.Tests.csproj", "{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +22,32 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{516B1F72-38F4-44D2-946B-5254D3E1E173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{516B1F72-38F4-44D2-946B-5254D3E1E173}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{516B1F72-38F4-44D2-946B-5254D3E1E173}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{516B1F72-38F4-44D2-946B-5254D3E1E173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02795A1A-C710-4DB5-8E6D-49F642DFA9F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02795A1A-C710-4DB5-8E6D-49F642DFA9F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02795A1A-C710-4DB5-8E6D-49F642DFA9F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02795A1A-C710-4DB5-8E6D-49F642DFA9F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{828C5981-7E6B-4608-96A1-0DCEF2E3B2AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{828C5981-7E6B-4608-96A1-0DCEF2E3B2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{828C5981-7E6B-4608-96A1-0DCEF2E3B2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{828C5981-7E6B-4608-96A1-0DCEF2E3B2AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EE4B405-7181-4260-A09A-BFEC9731BF52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE4B405-7181-4260-A09A-BFEC9731BF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE4B405-7181-4260-A09A-BFEC9731BF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE4B405-7181-4260-A09A-BFEC9731BF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02795A1A-C710-4DB5-8E6D-49F642DFA9F7} = {7AA74126-9F34-4600-9790-A428C1ECFD9A}
+		{828C5981-7E6B-4608-96A1-0DCEF2E3B2AE} = {7AA74126-9F34-4600-9790-A428C1ECFD9A}
+		{4EE4B405-7181-4260-A09A-BFEC9731BF52} = {7AA74126-9F34-4600-9790-A428C1ECFD9A}
+		{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02} = {7AA74126-9F34-4600-9790-A428C1ECFD9A}
+		{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6} = {56EDBF76-AC1E-4D8F-B0A0-C02EA3ABFDC1}
 	EndGlobalSection
 EndGlobal
