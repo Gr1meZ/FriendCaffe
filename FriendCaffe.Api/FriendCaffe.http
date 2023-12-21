@@ -1,0 +1,6 @@
+@FriendCaffe_HostAddress = http://localhost:5062
+
+GET {{FriendCaffe_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
