@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.WebApi", "FriendCaffe.WebApi\FriendCaffe.WebApi.csproj", "{70B0F9DB-CC7D-4B4A-B2D7-3BAF54873C02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Architecture.Tests", "Architecture.Tests\Architecture.Tests.csproj", "{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendCaffe.UnitTests", "FriendCaffe.UnitTests\FriendCaffe.UnitTests.csproj", "{2DA41037-E7F3-4E76-9FD2-C0F5924D94B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

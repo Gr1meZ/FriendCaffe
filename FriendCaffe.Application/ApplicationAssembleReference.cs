@@ -1,6 +1,6 @@
 namespace FriendCaffe.Application;
 
-public class ApplicationReference
+public class ApplicationAssembleReference
 {
     
 }

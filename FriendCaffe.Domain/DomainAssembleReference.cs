@@ -1,6 +1,6 @@
 namespace FriendCaffe.Domain;
 
-public class DomainReference
+public class DomainAssembleReference
 {
     
 }

@@ -1,28 +1,43 @@
+using FriendCaffe.Application;
+using FriendCaffe.Application.Configuration.AutoMapper;
+using FriendCaffe.Infrastructure.Database;
+using FriendCaffe.WebApi;
+using FriendCaffe.WebApi.Configuration.AutoMapper;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    
+    builder.Services.RegisterDatabase(builder.Configuration);
+    builder.Services.AddMediatR(cfg =>
+        cfg.RegisterServicesFromAssemblies([typeof(ApplicationAssembleReference).Assembly, typeof(PresentationAssembleReference).Assembly]));
+    builder.Services.AddAutoMapper(typeof(PresentationProfile), typeof(ApplicationProfile));
 }
 
-app.UseHttpsRedirection();
 
-app.UseCors(cors =>
+var app = builder.Build();
 {
-    cors.AllowAnyHeader();
-    cors.AllowAnyMethod();
-    cors.AllowAnyOrigin();
-});
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        app.UseDeveloperExceptionPage();
+    }
 
-app.Run();
+    app.UseHttpsRedirection();
+
+    app.UseCors(cors =>
+    {
+        cors.AllowAnyHeader();
+        cors.AllowAnyMethod();
+        cors.AllowAnyOrigin();
+    });
+
+    app.MapControllers();
+    
+    app.Run();
+
+}
+// Configure the HTTP request pipeline.
 
