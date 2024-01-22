@@ -28,7 +28,7 @@
     <ItemGroup>
       <ProjectReference Include="..\FriendCaffe.Application\FriendCaffe.Application.csproj" />
       <ProjectReference Include="..\FriendCaffe.Domain\FriendCaffe.Domain.csproj" />
-      <ProjectReference Include="..\FriendCaffe.Infrastructure\FriendCaffe.Infrastructure.csproj" />
+      <ProjectReference Include="..\FriendCaffe.Infrastructure.Data\FriendCaffe.Infrastructure.Data.csproj" />
       <ProjectReference Include="..\FriendCaffe.WebApi\FriendCaffe.WebApi.csproj" />
     </ItemGroup>
 

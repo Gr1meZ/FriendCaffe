@@ -1,6 +1,8 @@
+using FriendCaffe.Domain.Entities.User;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FriendCaffe.Infrastructure.Database;
+namespace FriendCaffe.Infrastructure.Data.Database;
 
 public class ApplicationDbContext : DbContext
 {

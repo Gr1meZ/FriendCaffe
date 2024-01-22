@@ -3,7 +3,7 @@ using FluentAssertions;
 using FriendCaffe.Application;
 using FriendCaffe.Application.Configuration.AutoMapper;
 using FriendCaffe.Domain;
-using FriendCaffe.Infrastructure;
+using FriendCaffe.Infrastructure.Data;
 using FriendCaffe.WebApi;
 using FriendCaffe.WebApi.Configuration.AutoMapper;
 using FriendCaffe.WebApi.Controllers;
@@ -15,7 +15,7 @@ public class ArchitectureTests
 {
     private const string DomainNamespace = "FriendCaffe.Domain";
     private const string ApplicationNamespace = "FriendCaffe.Application";
-    private const string InfrastructureDataNamespace = "FriendCaffe.Infrastructure";
+    private const string InfrastructureDataNamespace = "FriendCaffe.Infrastructure.Data";
     private const string PresentationNamespace = "FriendCaffe.WebApi";
     
     [Fact]

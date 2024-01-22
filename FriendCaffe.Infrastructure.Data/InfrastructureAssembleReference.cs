@@ -1,4 +1,4 @@
-namespace FriendCaffe.Infrastructure;
+namespace FriendCaffe.Infrastructure.Data;
 
 public class InfrastructureAssembleReference
 {

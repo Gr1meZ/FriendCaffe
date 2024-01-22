@@ -2,7 +2,7 @@ using System.Data;
 using FriendCaffe.Application.Configuration.Data;
 using Npgsql;
 
-namespace FriendCaffe.Infrastructure.Database;
+namespace FriendCaffe.Infrastructure.Data.Database;
 
 public class SqlConnectionFactory : ISqlConnectionFactory, IDisposable
 {
