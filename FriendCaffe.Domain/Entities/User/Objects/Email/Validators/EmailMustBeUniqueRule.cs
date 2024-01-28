@@ -12,7 +12,7 @@ public class EmailMustBeUniqueRule : IBusinessRuleAsync
         _userRepository = userRepository;
     }
 
-    public async Task<bool> IsBrokenAsync() => await _userRepository.IsEmailExists(_email);
+    public async Task<bool> IsBrokenAsync() => await _userRepository.IsEmailExistsAsync(_email);
    
 
     public string Message => "Email is already taken";

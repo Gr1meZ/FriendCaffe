@@ -23,7 +23,7 @@ public class UserRepository : Repository<FriendCaffe.Domain.Entities.User.User>,
         return user;
     }
 
-    public async Task<bool> IsEmailExists(string email) 
+    public async Task<bool> IsEmailExistsAsync(string email) 
         => await ApplicationDbContext.Users.AnyAsync(x => x.Email.Value == email);
   
 

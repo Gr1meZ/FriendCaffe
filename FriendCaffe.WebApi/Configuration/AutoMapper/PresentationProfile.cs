@@ -13,7 +13,8 @@ public class PresentationProfile : Profile
     {
         CreateMap<AuthenticationResult, AuthenticationResponse>();
         CreateMap<LoginRequest, LoginQuery>();
-        CreateMap<RegisterRequest, RegisterCommand>();
+        CreateMap<RegisterRequest, RegisterCommand>()
+            .ForMember(x => x.Id, opt => opt.Ignore());
         
 
     }

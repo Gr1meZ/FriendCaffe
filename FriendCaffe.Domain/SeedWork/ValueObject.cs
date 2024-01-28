@@ -42,6 +42,14 @@ public abstract class ValueObject<T>
         }
     }
     
+    protected static async Task CheckRuleAsync(IBusinessRuleAsync rule)
+    {
+        if (await rule.IsBrokenAsync())
+        {
+            throw new EntityValidationException(rule);
+        }
+    }
+    
     public static bool operator !=(ValueObject<T> a, ValueObject<T> b)
     {
         return !(a == b);

@@ -17,11 +17,12 @@ public sealed class UserDetails : ValueObject<UserDetails>
         Nickname = nickname;
     }
 
-    public static UserDetails Create(string name, string surname, string nickname)
+    public static async Task<UserDetails> CreateAsync(string name, string surname, string nickname, IUserRepository userRepository)
     {
         CheckRule(new UserDetailsMustBeNotNullRule(name, surname, nickname));
         CheckRule(new NickNameMustBeValidRule(nickname));
-
+        await CheckRuleAsync(new NicknameMustBeUniqueRule(userRepository, nickname));
+        
         return new UserDetails(name, surname, nickname);
     }
 
@@ -32,13 +33,10 @@ public sealed class UserDetails : ValueObject<UserDetails>
     }
     
     protected override int GetHashCodeCore() => (GetType().GetHashCode() * 907) + About.GetHashCode() + Nickname.GetHashCode();
-    
+
 
     protected override bool EqualsCore(UserDetails other)
     {
-        return Nickname.Equals(other.Nickname) && Name.Equals(other.Name) && Surname.Equals(other.Surname) &&
-               About.Equals(other.About);
+        return Nickname.Equals(other.Nickname) && Name.Equals(other.Name) && Surname.Equals(other.Surname);
     }
-
-    
 }

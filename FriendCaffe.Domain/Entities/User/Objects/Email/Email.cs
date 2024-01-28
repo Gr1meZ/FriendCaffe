@@ -8,9 +8,10 @@ public sealed class Email() : ValueObject<Email>
     private Email(string value) : this() => Value = value;
     public string Value { get; private set; }
 
-    public static Email Create(string value)
+    public static async Task<Email> CreateAsync(string value, IUserRepository userRepository)
     {
        CheckRule(new EmailMustBeValidRule(value));
+       await CheckRuleAsync(new EmailMustBeUniqueRule(value, userRepository));
        return new Email(value);
     }
     

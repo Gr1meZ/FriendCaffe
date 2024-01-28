@@ -11,7 +11,7 @@ public class AboutMustHaveValidLengthRule : IBusinessRule
         _about = about;
     }
 
-    public bool IsBroken() => _about.Length is > 200 and > 0;
+    public bool IsBroken() => string.IsNullOrEmpty(_about) || _about.Length > 200 && _about.Length == 0;
 
 
     public string Message => "Length of about field must be between 0 and 200";
