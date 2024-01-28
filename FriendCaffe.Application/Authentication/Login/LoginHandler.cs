@@ -13,7 +13,6 @@ public class LoginHandler : IQueryHandler<LoginQuery, AuthenticationResult>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
-
     public LoginHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
@@ -22,13 +21,8 @@ public class LoginHandler : IQueryHandler<LoginQuery, AuthenticationResult>
 
     public async Task<AuthenticationResult> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        //  const string sql = "SELECT "
         var user = await _userRepository.GetByEmailAsync(request.Email);
-        if (user is null)
-        {
-            throw new NotFoundException("User not found or not created");
-        }
-
+        
         if (!BCryptHelper.CheckPassword(request.Password, user.Password.Hash))
         {
             throw new ValidationException("Invalid password");

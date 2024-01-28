@@ -1,6 +1,8 @@
+using FriendCaffe.Application.Exceptions;
 using FriendCaffe.Domain.Entities.User;
 using FriendCaffe.Domain.SeedWork;
 using FriendCaffe.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriendCaffe.Infrastructure.Domain.User;
 
@@ -10,18 +12,22 @@ public class UserRepository : Repository<FriendCaffe.Domain.Entities.User.User>,
     {
     }
 
-    public Task<FriendCaffe.Domain.Entities.User.User> GetByEmailAsync(string email)
+    public async Task<FriendCaffe.Domain.Entities.User.User> GetByEmailAsync(string email)
     {
-        throw new NotImplementedException();
+        var user = await ApplicationDbContext.Users
+            .FirstOrDefaultAsync(x => x.Email.Value == email);
+        
+        if (user == null)
+            throw new NotFoundException($"User with email '{email}' not found");
+        
+        return user;
     }
 
-    public Task<bool> IsEmailExists(string email)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<bool> IsEmailExists(string email) 
+        => await ApplicationDbContext.Users.AnyAsync(x => x.Email.Value == email);
+  
 
-    public Task<bool> IsNicknameExistsAsync(string nickname)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<bool> IsNicknameExistsAsync(string nickname) 
+        => await ApplicationDbContext.Users.AnyAsync(x => x.UserDetails.Nickname == nickname);
+    
 }

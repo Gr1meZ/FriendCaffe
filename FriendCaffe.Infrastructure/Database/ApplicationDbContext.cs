@@ -1,4 +1,5 @@
 using FriendCaffe.Domain.Entities.User;
+using FriendCaffe.Infrastructure.Domain.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +14,8 @@ public class ApplicationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().OwnsOne(p => p.Address);
-        modelBuilder.Entity<User>().OwnsOne(p => p.UserDetails);
-        modelBuilder.Entity<User>().OwnsOne(p => p.Email);
-        modelBuilder.Entity<User>().OwnsOne(p => p.Password);
-
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserTypeConfig).Assembly);
     }
     
     public DbSet<User> Users { get; set; }

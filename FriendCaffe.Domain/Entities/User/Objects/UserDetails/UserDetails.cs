@@ -8,7 +8,7 @@ public sealed class UserDetails : ValueObject<UserDetails>
     public string Name { get; private set; }
     public string Surname { get; private set; }
     public string Nickname { get; private set; }
-    public string About { get; private set; }
+    public string? About { get; private set; }
     
     private UserDetails(string name, string surname, string nickname)
     {

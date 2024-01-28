@@ -4,12 +4,23 @@ using FriendCaffe.Domain.Entities.User;
 using FriendCaffe.Domain.Entities.User.Objects.Email;
 using FriendCaffe.Domain.Entities.User.Objects.Password;
 using FriendCaffe.Domain.Entities.User.Objects.UserDetails;
+using FriendCaffe.Domain.SeedWork;
 
 namespace FriendCaffe.Application.Authentication.Register;
 
-public class RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+public class RegisterCommandHandler
     : ICommandHandler<RegisterCommand, AuthenticationResult>
 {
+    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    public RegisterCommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IJwtTokenGenerator jwtTokenGenerator)
+    {
+        _userRepository = userRepository;
+        _unitOfWork = unitOfWork;
+        _jwtTokenGenerator = jwtTokenGenerator;
+    }
+
     public async Task<AuthenticationResult> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
             var email = Email.Create(request.Email);
@@ -18,10 +29,10 @@ public class RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserR
 
             var user = User.Create(email, password, userDetails);
             
-            await userRepository.AddAsync(user);
+            await _userRepository.AddAsync(user);
         
-            var token = jwtTokenGenerator.GenerateToken(user);
-        
+            var token = _jwtTokenGenerator.GenerateToken(user);
+            await _unitOfWork.CommitAsync(cancellationToken);
             return new AuthenticationResult(user.Id, user.Email.Value, token);
         }
     }

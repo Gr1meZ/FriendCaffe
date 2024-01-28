@@ -3,6 +3,7 @@ using FriendCaffe.WebApi.Configuration.AutoMapper;
 using FriendCaffe.WebApi.Configuration.Database;
 using FriendCaffe.WebApi.Configuration.DependencyInjection;
 using FriendCaffe.WebApi.Configuration.MediatR;
+using FriendCaffe.WebApi.Configuration.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -26,6 +27,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddAutoMapperConfiguration();
     
     builder.Services.AddDependencyInjectionConfiguration();
+    
+    builder.Services.AddSwaggerConfiguration();
 
 }
 
@@ -36,8 +39,7 @@ var app = builder.Build();
     
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerSetup();
         app.UseDeveloperExceptionPage();
     }
 
