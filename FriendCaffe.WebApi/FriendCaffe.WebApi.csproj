@@ -22,11 +22,12 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FriendCaffe.Infrastructure.Data\FriendCaffe.Infrastructure.Data.csproj" />
-      <ProjectReference Include="..\FriendCaffe.Infrastructure.IoC\FriendCaffe.Infrastructure.IoC.csproj" />
+      <ProjectReference Include="..\FriendCaffe.Infrastructure\FriendCaffe.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

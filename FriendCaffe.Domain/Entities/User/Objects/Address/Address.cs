@@ -18,7 +18,7 @@ public sealed class Address : ValueObject<Address>
 
     public static Address Create(string street, string country, string city)
     {
-        CheckRule(new AddressMustBeNotNull(country, street, city));
+        CheckRule(new AddressMustBeNotNullRule(country, street, city));
         return new Address(street, country, city);
     }
     

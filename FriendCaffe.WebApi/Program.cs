@@ -1,3 +1,4 @@
+using FriendCaffe.Infrastructure.IoC;
 using FriendCaffe.WebApi.Configuration.AutoMapper;
 using FriendCaffe.WebApi.Configuration.Database;
 using FriendCaffe.WebApi.Configuration.DependencyInjection;
@@ -20,7 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDatabase(builder.Configuration);
     
     builder.Services.RegisterMediatR();
-    
+    builder.Services.AddJwtAuth(builder.Configuration);
+
     builder.Services.AddAutoMapperConfiguration();
     
     builder.Services.AddDependencyInjectionConfiguration();
@@ -49,7 +51,10 @@ var app = builder.Build();
         cors.AllowAnyMethod();
         cors.AllowAnyOrigin();
     });
-
+    
+    app.UseAuthentication();
+    app.UseAuthorization();
+    
     app.MapControllers();
     
     app.Run();

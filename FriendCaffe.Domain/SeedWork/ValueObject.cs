@@ -1,3 +1,5 @@
+using FluentValidation;
+
 namespace FriendCaffe.Domain.SeedWork;
 
 public abstract class ValueObject<T>
@@ -31,12 +33,12 @@ public abstract class ValueObject<T>
 
         return a.Equals(b);
     }
-    
+
     protected static void CheckRule(IBusinessRule rule)
     {
         if ( rule.IsBroken())
         {
-            throw new BusinessRuleValidationException(rule);
+            throw new DomainException(rule);
         }
     }
     

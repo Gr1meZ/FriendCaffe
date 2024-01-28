@@ -9,11 +9,11 @@ namespace FriendCaffe.WebApi.Controllers;
 public class ApiController : ControllerBase
 {
     protected readonly IMapper Mapper;
-    protected readonly ISender Sender;
-    public ApiController(IMapper mapper, ISender sender)
+    protected readonly IMediator Mediator;
+    public ApiController(IMapper mapper, IMediator mediator)
     {
         Mapper = mapper;
-        Sender = sender;
+        Mediator = mediator;
     }
     
     private readonly ICollection<string> _errors = new List<string>();

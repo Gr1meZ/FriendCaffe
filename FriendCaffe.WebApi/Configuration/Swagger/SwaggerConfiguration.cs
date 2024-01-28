@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace FriendCaffe.WebApi.Configuration.Swagger
 {
@@ -17,31 +18,15 @@ namespace FriendCaffe.WebApi.Configuration.Swagger
                     Description = "Friend Caffe Social Network API"
                 });
 
-                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                s.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "Input the JWT like: Bearer {your token}",
-                    Name = "Authorization",
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
+                    Description = "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
                     In = ParameterLocation.Header,
+                    Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
-
-                s.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[] {}
-                    }
-                });
-
+                
+                s.OperationFilter<SecurityRequirementsOperationFilter>();
             });
         }
 

@@ -10,21 +10,25 @@ public sealed class UserDetails : ValueObject<UserDetails>
     public string Nickname { get; private set; }
     public string About { get; private set; }
     
-    private UserDetails(string name, string surname, string nickname, string about)
+    private UserDetails(string name, string surname, string nickname)
     {
         Name = name;
         Surname = surname;
         Nickname = nickname;
-        About = about;
     }
 
-    public static UserDetails Create(string name, string surname, string nickname, string about)
+    public static UserDetails Create(string name, string surname, string nickname)
     {
-        CheckRule(new UserDetailsMustBeNotNull(name, surname, nickname, about));
-        CheckRule(new AboutMustHaveValidLength(about));
-        CheckRule(new NickNameMustBeValid(nickname));
+        CheckRule(new UserDetailsMustBeNotNullRule(name, surname, nickname));
+        CheckRule(new NickNameMustBeValidRule(nickname));
 
-        return new UserDetails(name, surname, nickname, about);
+        return new UserDetails(name, surname, nickname);
+    }
+
+    public void CreateAbout(string about)
+    {
+        CheckRule(new AboutMustHaveValidLengthRule(about));
+        About = about;
     }
     
     protected override int GetHashCodeCore() => (GetType().GetHashCode() * 907) + About.GetHashCode() + Nickname.GetHashCode();

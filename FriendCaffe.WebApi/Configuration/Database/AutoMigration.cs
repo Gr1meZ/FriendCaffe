@@ -1,4 +1,4 @@
-using FriendCaffe.Infrastructure.Data.Database;
+using FriendCaffe.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace FriendCaffe.WebApi.Configuration.Database;

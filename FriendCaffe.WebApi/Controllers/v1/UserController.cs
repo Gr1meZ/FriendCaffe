@@ -1,12 +1,9 @@
-
 using AutoMapper;
 using MediatR;
 
 namespace FriendCaffe.WebApi.Controllers.v1;
 
-public class UserController : ApiController
+public class UserController(IMapper mapper, IMediator mediator) : ApiController(mapper, mediator)
 {
-    public UserController(IMapper mapper, ISender sender) : base(mapper, sender)
-    {
-    }
+    
 }

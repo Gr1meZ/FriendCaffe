@@ -1,5 +1,5 @@
 using FriendCaffe.Domain.Entities.User;
-using FriendCaffe.Infrastructure.Data.Database;
+using FriendCaffe.Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +20,6 @@ public static class DatabaseConfiguration
                 .UseNpgsql(connectionString, b => 
                     b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
                 .EnableSensitiveDataLogging();
-            
         });
     }
 }
