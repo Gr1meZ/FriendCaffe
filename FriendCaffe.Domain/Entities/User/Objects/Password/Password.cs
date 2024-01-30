@@ -21,6 +21,16 @@ public sealed class Password : ValueObject<Password>
         return new Password(hash);
     }
     
+    public void Change(string newPassword, string oldPassword)
+    {
+        CheckRule(new OldPasswordMatchRule(oldPassword, Hash));
+        CheckRule(new PasswordMustBeValidRule(newPassword));
+        
+        var salt = BCryptHelper.GenerateSalt();
+        var hash = BCryptHelper.HashPassword(newPassword, salt);
+        Hash = hash;
+    }
+    
     protected override int GetHashCodeCore() => (GetType().GetHashCode() * 907) + Hash.GetHashCode();
     
     protected override bool EqualsCore(Password other) => Hash.Equals(other.Hash);

@@ -1,4 +1,4 @@
-namespace FriendCaffe.Application.Auth;
+namespace FriendCaffe.Application.Common;
 
 public interface IJwtTokenGenerator
 {

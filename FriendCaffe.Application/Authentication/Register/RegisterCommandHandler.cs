@@ -1,4 +1,4 @@
-using FriendCaffe.Application.Auth;
+using FriendCaffe.Application.Common;
 using FriendCaffe.Application.Configuration.Commands;
 using FriendCaffe.Domain.Entities.User;
 using FriendCaffe.Domain.Entities.User.Objects.Email;

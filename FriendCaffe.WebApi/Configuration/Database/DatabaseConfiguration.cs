@@ -1,3 +1,4 @@
+using FriendCaffe.Application.Configuration.Data;
 using FriendCaffe.Domain.Entities.User;
 using FriendCaffe.Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
@@ -21,5 +22,7 @@ public static class DatabaseConfiguration
                     b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
                 .EnableSensitiveDataLogging();
         });
+        
+        services.AddScoped<ISqlConnectionFactory>(x => new SqlConnectionFactory(connectionString));
     }
 }

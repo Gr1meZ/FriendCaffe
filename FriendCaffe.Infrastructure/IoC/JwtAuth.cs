@@ -1,5 +1,5 @@
 using System.Text;
-using FriendCaffe.Application.Auth;
+using FriendCaffe.Application.Common;
 using FriendCaffe.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;

@@ -29,4 +29,6 @@ public class User : Entity
     public Password Password { get; private set; }
     public Address? Address { get; private set; }
     public UserDetails UserDetails { get; private set; }
+
+    private IReadOnlyList<Post.Post> _posts = new List<Post.Post>();
 }

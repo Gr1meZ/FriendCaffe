@@ -179,4 +179,24 @@ public class UserTests
         //Act & Assert
         Assert.Throws<DomainException>(() => user.UserDetails.CreateAbout(about));
     }
+    
+    [Fact]
+    public async Task UserDetails_Change_IsValid()
+    {
+        //Arrange
+        var user = await  UserBuilder.CreateSpecificUser(_mock.Object);
+        var name = "Ivan";
+        var surname = "Ivanov";
+        var nickname = "Godzila13";
+        _mock.Setup(x => x.IsNicknameExistsAsync(nickname)).ReturnsAsync(false);
+
+        //Act
+        await user.UserDetails.Change(name, surname, nickname, _mock.Object);
+        
+        //Assert
+        Assert.Equal(name, user.UserDetails.Name);
+        Assert.Equal(surname, user.UserDetails.Surname);
+        Assert.Equal(nickname, user.UserDetails.Nickname);
+    }
+    
 }

@@ -16,11 +16,12 @@ public class SqlConnectionFactory : ISqlConnectionFactory, IDisposable
 
     public IDbConnection GetOpenConnection()
     {
-        if (_connection.State == ConnectionState.Open) return this._connection;
+        if (_connection != null && _connection.State == ConnectionState.Open) 
+            return this._connection;
         
         _connection = new NpgsqlConnection(_connectionString);
         _connection.Open();
-
+        
         return _connection;
     }
     

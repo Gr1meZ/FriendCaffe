@@ -16,6 +16,5 @@ public class NativeInjector
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
-
         }
     }

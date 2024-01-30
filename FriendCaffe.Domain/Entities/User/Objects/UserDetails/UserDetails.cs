@@ -31,6 +31,20 @@ public sealed class UserDetails : ValueObject<UserDetails>
         CheckRule(new AboutMustHaveValidLengthRule(about));
         About = about;
     }
+
+    public async Task Change(string name, string surname, string nickname, IUserRepository userRepository)
+    {
+        CheckRule(new UserDetailsMustBeNotNullRule(name, surname, nickname));
+        if (nickname != Nickname)
+        {
+            CheckRule(new NickNameMustBeValidRule(nickname));
+            await CheckRuleAsync(new NicknameMustBeUniqueRule(userRepository, nickname));
+        }
+
+        Name = name;
+        Surname = surname;
+        Nickname = nickname;
+    }
     
     protected override int GetHashCodeCore() => (GetType().GetHashCode() * 907) + About.GetHashCode() + Nickname.GetHashCode();
 

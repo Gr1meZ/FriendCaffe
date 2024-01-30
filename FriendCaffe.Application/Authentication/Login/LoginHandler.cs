@@ -1,6 +1,7 @@
+using Dapper;
 using DevOne.Security.Cryptography.BCrypt;
 using FluentValidation;
-using FriendCaffe.Application.Auth;
+using FriendCaffe.Application.Common;
 using FriendCaffe.Application.Configuration.Commands;
 using FriendCaffe.Application.Configuration.Data;
 using FriendCaffe.Application.Configuration.Queries;

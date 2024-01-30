@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using FriendCaffe.Application.Auth;
 using FriendCaffe.Application.Common;
 using FriendCaffe.Domain.Entities.User;
 using Microsoft.Extensions.Options;
