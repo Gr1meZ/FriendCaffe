@@ -1,9 +1,9 @@
 using FriendCaffe.Application.Common;
 using FriendCaffe.Application.Configuration.Commands;
-using FriendCaffe.Domain.Entities.User;
-using FriendCaffe.Domain.Entities.User.Objects.Email;
-using FriendCaffe.Domain.Entities.User.Objects.Password;
-using FriendCaffe.Domain.Entities.User.Objects.UserDetails;
+using FriendCaffe.Domain.Aggregates.User;
+using FriendCaffe.Domain.Aggregates.User.Email;
+using FriendCaffe.Domain.Aggregates.User.Password;
+using FriendCaffe.Domain.Aggregates.User.UserDetails;
 using FriendCaffe.Domain.SeedWork;
 
 namespace FriendCaffe.Application.Authentication.Register;
@@ -23,9 +23,9 @@ public class RegisterCommandHandler
 
     public async Task<AuthenticationResult> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-            var email = await Email.CreateAsync(request.Email, _userRepository);
+            var email =  Email.Create(request.Email, _userRepository);
             var password = Password.Create(request.Password);
-            var userDetails = await UserDetails.CreateAsync(request.Name, request.Surname, request.Nickname, _userRepository);
+            var userDetails =  UserDetails.Create(request.Name, request.Surname, request.Nickname, _userRepository);
 
             var user = User.Create(email, password, userDetails);
             

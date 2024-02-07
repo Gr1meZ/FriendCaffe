@@ -1,6 +1,6 @@
 ﻿using FriendCaffe.Application.Common;
 using FriendCaffe.Application.Configuration.Data;
-using FriendCaffe.Domain.Entities.User;
+using FriendCaffe.Domain.Aggregates.User;
 using FriendCaffe.Domain.SeedWork;
 using FriendCaffe.Infrastructure.Database;
 using FriendCaffe.Infrastructure.Domain.User;

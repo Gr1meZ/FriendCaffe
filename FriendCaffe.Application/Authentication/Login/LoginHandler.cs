@@ -6,7 +6,7 @@ using FriendCaffe.Application.Configuration.Commands;
 using FriendCaffe.Application.Configuration.Data;
 using FriendCaffe.Application.Configuration.Queries;
 using FriendCaffe.Application.Exceptions;
-using FriendCaffe.Domain.Entities.User;
+using FriendCaffe.Domain.Aggregates.User;
 
 namespace FriendCaffe.Application.Authentication.Login;
 

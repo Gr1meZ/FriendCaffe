@@ -1,6 +1,7 @@
-using FriendCaffe.Domain.Entities.Post;
-using FriendCaffe.Domain.Entities.Post.Objects.Body;
-using FriendCaffe.Domain.Entities.User;
+using FriendCaffe.Domain.Aggregates.Post;
+using FriendCaffe.Domain.Aggregates.Post.Body;
+using FriendCaffe.Domain.Aggregates.User;
+using FriendCaffe.Domain.Aggregates.User.UserId;
 using FriendCaffe.Domain.SeedWork;
 using FriendCaffe.UnitTests.Builders;
 using Moq;
@@ -14,14 +15,14 @@ public class PostTests
 
 
     [Fact]
-    public async Task Post_MustBe_Created()
+    public void Post_MustBe_Created()
     {
         //Arrange
-        var user = await UserBuilder.CreateSpecificUser(_mockUserRepository.Object);
+        var user =  UserBuilder.CreateSpecificUser(_mockUserRepository.Object);
         var body = Body.Create("Hey, some post here");
         var utc = DateTime.UtcNow;
         //Act
-        var post = Post.Create(user.Id, body, utc);
+        var post = Post.Create(new UserId(), body, utc);
 
         //Assert
         Assert.Equal(utc, post.CreatedAt);

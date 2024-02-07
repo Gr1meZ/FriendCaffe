@@ -59,12 +59,4 @@ public abstract class Entity
             throw new DomainException(rule);
         }
     }
-    
-    protected static async Task CheckRuleAsync(IBusinessRuleAsync rule)
-    {
-        if ( await rule.IsBrokenAsync())
-        {
-            throw new EntityValidationException(rule);
-        }
-    }
 }

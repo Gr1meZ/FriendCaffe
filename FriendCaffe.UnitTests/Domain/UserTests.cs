@@ -1,15 +1,16 @@
 using DevOne.Security.Cryptography.BCrypt;
-using FriendCaffe.Domain.Entities.User;
-using FriendCaffe.Domain.Entities.User.Objects.Address;
-using FriendCaffe.Domain.Entities.User.Objects.Email;
-using FriendCaffe.Domain.Entities.User.Objects.Password;
-using FriendCaffe.Domain.Entities.User.Objects.UserDetails;
+using FriendCaffe.Domain.Aggregates.User;
+using FriendCaffe.Domain.Aggregates.User.Address;
+using FriendCaffe.Domain.Aggregates.User.Email;
+using FriendCaffe.Domain.Aggregates.User.Password;
+using FriendCaffe.Domain.Aggregates.User.UserDetails;
 using FriendCaffe.Domain.SeedWork;
 using FriendCaffe.UnitTests.Builders;
 using Moq;
 
 namespace FriendCaffe.UnitTests.Domain;
 
+//TODO Split value objects to other test classes
 public class UserTests
 {
     private readonly Mock<IUserRepository> _mock = new();
@@ -42,55 +43,58 @@ public class UserTests
     }
 
     [Fact]
-    public async Task Email_Must_BeValid()
+    public void Email_Must_BeValid()
     {
         //Arrange
         const string emailFromRequest = "test@mail.ru";
-        _mock.Setup(x => x.IsEmailExistsAsync(emailFromRequest))
-            .ReturnsAsync(false);
+        _mock.Setup(x => x.IsEmailExists(emailFromRequest))
+            .Returns(false);
 
         //Act
-        var email = await Email.CreateAsync(emailFromRequest, _mock.Object);
+        var email =  Email.Create(emailFromRequest, _mock.Object);
 
         //Assert
         Assert.Equal(emailFromRequest, email.Value);
     }
 
+    //TODO move email existing check to user 
     [Fact]
-    public async Task Email_IsExisting_ThrowsException()
+    public void Email_IsExisting_ThrowsException()
     {
         //Arrange
         const string emailFromRequest = "test@mail.ru";
-        _mock.Setup(x => x.IsEmailExistsAsync(emailFromRequest))
-            .ReturnsAsync(true);
+        _mock.Setup(x => x.IsEmailExists(emailFromRequest))
+            .Returns(true);
 
         //Act & Assert
-        await Assert.ThrowsAsync<EntityValidationException>(() => Email.CreateAsync(emailFromRequest, _mock.Object));
+        Assert.Throws<DomainException>(() => Email.Create(emailFromRequest, _mock.Object));
     }
 
     [Fact]
-    public async Task Email_IsNotValid_ThrowsException()
+    public void Email_IsNotValid_ThrowsException()
     {
         //Arrange
         const string emailFromRequest = "some come";
-        _mock.Setup(x => x.IsEmailExistsAsync(emailFromRequest))
-            .ReturnsAsync(false);
+        _mock.Setup(x => x.IsEmailExists(emailFromRequest))
+            .Returns(false);
 
         //Act & Assert
-        await Assert.ThrowsAsync<DomainException>(() => Email.CreateAsync(emailFromRequest, _mock.Object));
+        Assert.Throws<DomainException>(() => Email.Create(emailFromRequest, _mock.Object));
     }
     
-    [Fact]
-    public void Password_MustBe_Valid()
+    [Theory]
+    [InlineData("456Lol321&*")]
+    [InlineData("Admin1**")]
+    [InlineData("User5***")]
+
+    public void Password_MustBe_Valid(string passwordValue)
     {
-        //Arrange
-        const string expectedPassword = "456Lol321&*";
        
         //Act
-        var password = Password.Create(expectedPassword);
+        var password = Password.Create(passwordValue);
         
         //Assert
-        Assert.True(BCryptHelper.CheckPassword(expectedPassword, password.Hash));
+        Assert.True(BCryptHelper.CheckPassword(passwordValue, password.Hash));
     }
     
     [Fact]
@@ -104,17 +108,17 @@ public class UserTests
     }
     
     [Fact]
-    public async Task UsersDetails_MustBe_Valid()
+    public void UsersDetails_MustBe_Valid()
     {
         //Arrange
         const string name = "Artyom";
         const string surname = "Ivanov";
         const string nickname = "Hacker98";
-        _mock.Setup(x => x.IsNicknameExistsAsync(nickname))
-            .ReturnsAsync(false);
+        _mock.Setup(x => x.IsNicknameExists(nickname))
+            .Returns(false);
         
         //Act
-        var userDetails = await UserDetails.CreateAsync(name, surname, nickname, _mock.Object);
+        var userDetails =  UserDetails.Create(name, surname, nickname, _mock.Object);
         
         //Assert
         Assert.Equal(name, userDetails.Name);
@@ -123,44 +127,45 @@ public class UserTests
     }
     
     [Fact]
-    public async Task UsersDetails_ThrowsException_WhenNullOrEmpty()
+    public void UsersDetails_ThrowsException_WhenNullOrEmpty()
     {
         //Arrange
-        _mock.Setup(x => x.IsNicknameExistsAsync(It.IsAny<string>()))
-            .ReturnsAsync(false);
+        _mock.Setup(x => x.IsNicknameExists(It.IsAny<string>()))
+            .Returns(false);
         
         //Act && Assert
-        await Assert.ThrowsAsync<DomainException>(() =>  UserDetails.CreateAsync("", "", "", _mock.Object));
+        Assert.Throws<DomainException>(() =>  UserDetails.Create("", "", "", _mock.Object));
     }
     
     [Fact]
-    public async Task Nickname_IsNotValid_ThrowsException()
+    public void Nickname_IsNotValid_ThrowsException()
     {
         //Arrange
-        _mock.Setup(x => x.IsNicknameExistsAsync(It.IsAny<string>()))
-            .ReturnsAsync(false);
+        _mock.Setup(x => x.IsNicknameExists(It.IsAny<string>()))
+            .Returns(false);
         
         //Act && Assert
-        await Assert.ThrowsAsync<DomainException>(() =>  UserDetails.CreateAsync("Artyom", "Ivanov", "A#$8", _mock.Object));
+        Assert.Throws<DomainException>(() =>  UserDetails.Create("Artyom", "Ivanov", "A#$8", _mock.Object));
+    }
+    
+    //TODO move nickname checking to user
+    [Fact]
+    public void Nickname_AlreadyExists_ThrowsException()
+    {
+        //Arrange
+        _mock.Setup(x => x.IsNicknameExists(It.IsAny<string>()))
+            .Returns(true);
+        
+        //Act && Assert
+        Assert.Throws<DomainException>(() =>  UserDetails.Create("Artyom", "Ivanov", "Gr1meZ", _mock.Object));
     }
     
     [Fact]
-    public async Task Nickname_AlreadyExists_ThrowsException()
-    {
-        //Arrange
-        _mock.Setup(x => x.IsNicknameExistsAsync(It.IsAny<string>()))
-            .ReturnsAsync(true);
-        
-        //Act && Assert
-        await Assert.ThrowsAsync<EntityValidationException>(() =>  UserDetails.CreateAsync("Artyom", "Ivanov", "Gr1meZ", _mock.Object));
-    }
-    
-    [Fact]
-    public async Task User_About_MustBe_Valid()
+    public void User_About_MustBe_Valid()
     {
         //Arrange
         var about = "Hey, my name is Artyom and this is my about text";
-        var user = await  UserBuilder.CreateSpecificUser(_mock.Object);
+        var user =  UserBuilder.CreateSpecificUser(_mock.Object);
         
         //Act
         user.UserDetails.CreateAbout(about);
@@ -170,28 +175,28 @@ public class UserTests
     }
     
     [Fact]
-    public async Task User_About_IsNotValid_ThrowsException()
+    public void User_About_IsNotValid_ThrowsException()
     {
         //Arrange
         var about = string.Empty;
-        var user = await  UserBuilder.CreateSpecificUser(_mock.Object);
+        var user =  UserBuilder.CreateSpecificUser(_mock.Object);
         
         //Act & Assert
         Assert.Throws<DomainException>(() => user.UserDetails.CreateAbout(about));
     }
     
     [Fact]
-    public async Task UserDetails_Change_IsValid()
+    public void UserDetails_Change_IsValid()
     {
         //Arrange
-        var user = await  UserBuilder.CreateSpecificUser(_mock.Object);
+        var user = UserBuilder.CreateSpecificUser(_mock.Object);
         var name = "Ivan";
         var surname = "Ivanov";
         var nickname = "Godzila13";
-        _mock.Setup(x => x.IsNicknameExistsAsync(nickname)).ReturnsAsync(false);
+        _mock.Setup(x => x.IsNicknameExists(nickname)).Returns(false);
 
         //Act
-        await user.UserDetails.Change(name, surname, nickname, _mock.Object);
+        user.UserDetails.Change(name, surname, nickname, _mock.Object);
         
         //Assert
         Assert.Equal(name, user.UserDetails.Name);

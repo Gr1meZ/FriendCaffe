@@ -1,18 +1,17 @@
-using FriendCaffe.Domain.Entities.User;
-using FriendCaffe.Domain.Entities.User.Objects.Address;
-using FriendCaffe.Domain.Entities.User.Objects.Email;
-using FriendCaffe.Domain.Entities.User.Objects.Password;
-using FriendCaffe.Domain.Entities.User.Objects.UserDetails;
+using FriendCaffe.Domain.Aggregates.User;
+using FriendCaffe.Domain.Aggregates.User.Email;
+using FriendCaffe.Domain.Aggregates.User.Password;
+using FriendCaffe.Domain.Aggregates.User.UserDetails;
 
 namespace FriendCaffe.UnitTests.Builders;
 
 public class UserBuilder
 {
-    public static async Task<User> CreateSpecificUser(IUserRepository userRepository)
+    public static User CreateSpecificUser(IUserRepository userRepository)
     {
-        var email = await Email.CreateAsync("test@mail.ru", userRepository);
+        var email =  Email.Create("test@mail.ru", userRepository);
         var password = Password.Create("567Lol123&*");
-        var userDetails = await UserDetails.CreateAsync("Artyom", "Korzun", "Gr1meZ", userRepository);
+        var userDetails =  UserDetails.Create("Artyom", "Korzun", "Gr1meZ", userRepository);
         
         return User.Create(email, password, userDetails);
     }

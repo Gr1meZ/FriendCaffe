@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FriendCaffe.Infrastructure.Domain.User;
 
-public class UserTypeConfig : IEntityTypeConfiguration<FriendCaffe.Domain.Entities.User.User>
+public class UserTypeConfig : IEntityTypeConfiguration<FriendCaffe.Domain.Aggregates.User.User>
 {
-    public void Configure(EntityTypeBuilder<FriendCaffe.Domain.Entities.User.User> builder)
+    public void Configure(EntityTypeBuilder<FriendCaffe.Domain.Aggregates.User.User> builder)
     {
         builder.OwnsOne(p => p.Address);
         builder.OwnsOne(p => p.UserDetails);

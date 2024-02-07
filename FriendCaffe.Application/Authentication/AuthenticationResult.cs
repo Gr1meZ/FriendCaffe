@@ -1,5 +1,3 @@
-using FriendCaffe.Domain.Entities.User;
-
 namespace FriendCaffe.Application.Authentication;
 
 public record AuthenticationResult

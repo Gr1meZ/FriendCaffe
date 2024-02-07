@@ -1,5 +1,4 @@
 using FriendCaffe.Application.Configuration.Data;
-using FriendCaffe.Domain.Entities.User;
 using FriendCaffe.Infrastructure.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

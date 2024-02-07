@@ -2,56 +2,48 @@ using FluentValidation;
 
 namespace FriendCaffe.Domain.SeedWork;
 
-public abstract class ValueObject<T>
-    where T : ValueObject<T>
+public abstract class ValueObject
 {
+    protected static bool EqualOperator(ValueObject left, ValueObject right)
+    {
+        if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+        {
+            return false;
+        }
+        return ReferenceEquals(left, right) || left.Equals(right);
+    }
+
+    protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+    {
+        return !(EqualOperator(left, right));
+    }
+
+    protected abstract IEnumerable<object?> GetEqualityComponents();
+
     public override bool Equals(object obj)
     {
-        return obj is T valueObject && EqualsCore(valueObject);
-    }
-
-    public override int GetHashCode()
-    {
-        return GetHashCodeCore();
-    }
-
-    protected abstract int GetHashCodeCore();
-
-    protected abstract bool EqualsCore(T other);
-
-    public static bool operator ==(ValueObject<T> a, ValueObject<T> b)
-    {
-        if (a is null && b is null)
-        {
-            return true;
-        }
-
-        if (a is null || b is null)
+        if (obj == null || obj.GetType() != GetType())
         {
             return false;
         }
 
-        return a.Equals(b);
+        var other = (ValueObject)obj;
+
+        return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
     }
 
+    public override int GetHashCode()
+    {
+        return GetEqualityComponents()
+            .Select(x => x != null ? x.GetHashCode() : 0)
+            .Aggregate((x, y) => x ^ y);
+    }
+    
     protected static void CheckRule(IBusinessRule rule)
     {
         if ( rule.IsBroken())
         {
             throw new DomainException(rule);
         }
-    }
-    
-    protected static async Task CheckRuleAsync(IBusinessRuleAsync rule)
-    {
-        if (await rule.IsBrokenAsync())
-        {
-            throw new EntityValidationException(rule);
-        }
-    }
-    
-    public static bool operator !=(ValueObject<T> a, ValueObject<T> b)
-    {
-        return !(a == b);
     }
 }

@@ -1,4 +1,4 @@
-using FriendCaffe.Domain.Entities.User;
+using FriendCaffe.Domain.Aggregates.User;
 using FriendCaffe.Infrastructure.Domain.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
